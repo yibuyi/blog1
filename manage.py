@@ -34,9 +34,9 @@ def test():
 
 @manager.command
 def deploy():
-	import flask_migrate
+	from flask_migrate import upgrade
 	from app.models import Role, User
-	flask_migrate.upgrade()
+	upgrade()
 
 # Role.insert_roles()
 # User.add_self_follows()
