@@ -1,4 +1,4 @@
-{% exteds "base.html" %}
+{% extends "base.html" %}
 {% import "_macros.html" as macros %}
 
 {% block title %}管理评论{% endblock %}
@@ -7,7 +7,7 @@
 <div class="page_content">
 	<h1>管理评论</h1>
 </div>
-{% setmoderate = True %}
+{% set moderate = True %}
 {% include '_comments.html' %}
 {% if pagination %}
 <div class="pagination">

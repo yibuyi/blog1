@@ -6,19 +6,14 @@ from wtforms import StringField, SubmitField, TextAreaField, ValidationError, Bo
 from wtforms.validators import DataRequired, Length, Email, Regexp
 
 
-class NameForm(Form):
-	name = StringField('what is your name?', validators=[DataRequired()])
-	submit = SubmitField('Submit')
-
-
 class PostForm(Form):  # 博客文章表单
-	head = StringField(u'标题', validators=[DataRequired(), Length(1, 64)])
+	#head = StringField(u'标题', validators=[DataRequired(), Length(1, 64)])
 	body = PageDownField(u'有什么想法就赶紧写出来吧！', validators=[DataRequired()])
 	submit = SubmitField(u'提交')
 
 
 class CommentForm(Form):
-	username = StringField('用户名', validators=[DataRequired()])
+	#username = StringField('用户名', validators=[DataRequired()])
 	body = StringField('说点什么吧：', validators=[DataRequired()])
 	submit = SubmitField('提交')
 
@@ -35,8 +30,7 @@ class EditProfileForm(Form):
 class EditProfileAdminForm(Form):
 	email = StringField(u'邮箱', validators=[DataRequired(), Length(1, 64), Email()])
 	username = StringField(u'用户名', validators=[DataRequired(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
-																					 'Usernames must have only letters,'
-																					 'numbers,dots or underscores')])
+																					 '用户名只能包含字母、数字和点')])
 	confirmed = BooleanField(u'确认')
 	role = SelectField(u'角色', coerce=int)
 	name = StringField(u'真实名字', validators=[Length(0, 64)])

@@ -40,6 +40,7 @@ def index():
 	if current_user.can(Permission.WRITE_ARTICLES) and form.validate_on_submit():
 		post = Post(body=form.body.data, author=current_user._get_current_object())
 		db.session.add(post)
+		db.session.commit()
 		return redirect(url_for('.index'))
 	page = request.args.get('page', 1, type=int)
 	show_followed = False
@@ -53,8 +54,7 @@ def index():
 		page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'],
 		error_out=False)
 	posts = pagination.items
-	return render_template('index.html', form=form, posts=posts,
-						   show_followed=show_followed, pagination=pagination)
+	return render_template('index.html', form=form, posts=posts, pagination=pagination)
 
 
 @main.route('/user/<username>')  # 资料页面的路由
@@ -122,11 +122,12 @@ def post(id):
 						  post=post,
 						  author=current_user._get_current_object())
 		db.session.add(comment)
+		db.session.commit()
 		flash(u'你的评论已经提交')
 		return redirect(url_for('.post', id=post.id, page=-1))
 	page = request.args.get('page', 1, type=int)
 	if page == -1:
-		page = (post.comments.count() - 1) // \
+		page = (post.comments.count() - 1) / \
 			   current_app.config['FLASKY_COMMENTS_PER_PAGE'] + 1
 	pagination = post.comments.order_by(Comment.timestamp.asc()).paginate(
 		page, per_page=current_app.config['FLASKY_COMMENTS_PER_PAGE'],
@@ -146,6 +147,7 @@ def edit(id):
 	if form.validate_on_submit():
 		post.body = form.body.data
 		db.session.add(post)
+		db.session.commit()
 		flash(u'该文章已经更新完毕')
 		return redirect(url_for('.post', id=post.id))
 	form.body.data = post.body
