@@ -7,7 +7,7 @@
 {{ super() }}
 <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static',filename='favicon.ico') }}">
 <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='favicon.ico') }}">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='bootstrap.min.css') }}">
 {% endblock %}
 
 {% block navbar %}
@@ -65,7 +65,53 @@
 		{{ message }}
 	</div>
 	{% endfor %}
-	{% block page_content %}{% endblock %}
+
+
+	<div class="raw">
+		<!-- 正文 -->
+		<main class="col-md-8 main-content">
+			{% block page_content %}
+			{% endblock%}	
+		</main>
+		<!--侧边-->
+		<aside class="col-md-4 sidebar">
+			{% block aside %}
+			<div class="widget">
+				<h4 class="title">关于作者</h4>
+				<img src="/static/tree.png" width="150" height="150">
+				<br/>
+				<p>言之命至</p>
+				<p>新手程序员，Python爱好者</p>
+
+				<ul class="list-inline">
+					<li>
+						<a class="navbar-brand" href="/static/mywexin.png" target="_blank">
+							<img alt="Weixin" src="/static/wexin.png" width="25" height="25">
+						</a>
+					</li>
+					<li>
+						<a class="navbar-brand" href="tencent://message/?uin=2290419022&Site=&Menu=yes" target="_blank">
+							<img alt="QQ" src="/static/qq.png" width="25" height="25">	
+						</a>
+					</li>
+					<li>
+						<a class="navbar-brand" href="https://github.com/yibuyi" target="_blank">
+							<img alt="Github" src="/static/git.png" width="25" height="25">
+						</a>
+					</li>
+					<li>
+						<a class="navbar-brand" href="mailto:li12qiang345@163.com" target="_blank">
+							<img alt="Mail" src="/static/mail.png" width="25" height="25">
+						</a>
+					</li>
+				</ul>
+
+				<hr />
+				<p>人生苦短，我用Python</p>
+			</div>
+			{% endblock %}
+		</aside>
+	</div>
 </div>
 {% endblock %}
 
